@@ -32,9 +32,15 @@ public class Gun : MonoBehaviour
             if (hit.rigidbody != null)
             {
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
+                hit.rigidbody.detectCollisions = true;
             }
             GameObject hitGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(hitGO, 2f);
+
+            if(hit.transform.tag == "Enemy")
+            {
+                hit.collider.gameObject.GetComponent<Vihu>().TakeDamage(40);
+            }
         }
     }
 
